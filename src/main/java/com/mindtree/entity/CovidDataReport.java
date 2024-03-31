@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class CovidDataReport {
-
     private String  fState;
     private String fConfirmed;
     private String  sState;
@@ -12,5 +11,4 @@ public class CovidDataReport {
     private String date;
     private String  state;
     private Integer count;
-
 }

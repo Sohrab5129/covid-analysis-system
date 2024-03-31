@@ -51,7 +51,7 @@ public class Main {
         System.out.print("Please Select Option : ");
     }
 
-    private void processInput(int option, List<CovidData> covidDataList) {
+    public void processInput(int option, List<CovidData> covidDataList) {
         switch (option) {
             case 1:
                 processOption1(covidDataList);
@@ -74,7 +74,7 @@ public class Main {
         }
     }
 
-    private void processOption4(List<CovidData> covidDataList) {
+    public void processOption4(List<CovidData> covidDataList) {
         boolean status = false;
         Date eDate = null;
         Date sDate = null;
@@ -107,6 +107,7 @@ public class Main {
                 status = covidData.validateFirstStateData(firstStateData);
             } catch (InvalidStateCodeException e) {
                 System.out.println(e.getMessage());
+                status = false;
             }
             if(status) {
                 secondStateCode = covidData.getSecondStateCode();
@@ -115,6 +116,7 @@ public class Main {
                     status = covidData.validateSecondStateData(secondStateData);
                 } catch (InvalidStateCodeException e) {
                     System.out.println(e.getMessage());
+                    status = false;
                 }
             }
 
@@ -124,6 +126,7 @@ public class Main {
                     status = covidData.validateData(reportMap);
                 } catch (NoDataFoundException e) {
                     System.out.println(e.getMessage());
+                    status = false;
                 }
                 if (status) {
                     printResults(reportMap);
@@ -132,12 +135,12 @@ public class Main {
         }
     }
 
-    private void printResults(Map<String, CovidDataReport> reportMap) {
+    public void printResults(Map<String, CovidDataReport> reportMap) {
         System.out.println("DATE        | FIRST STATE | FIRST STATE CONFIRMED TOTAL | SECOND STATE | SECOND STATE CONFIRMED TOTAL");
         reportMap.forEach((key, value) -> System.out.println(key + "  |    " + value.getFState() + "       |          " + value.getFConfirmed() + "              |         " + value.getSState() + "   |    " + value.getSConfirmed()));
     }
 
-    private void processOption3(List<CovidData> covidDataList) {
+    public void processOption3(List<CovidData> covidDataList) {
         Date eDate = null;
         boolean status = false;
         Date sDate = null;
@@ -178,12 +181,12 @@ public class Main {
         }
     }
 
-    private void printResult(Map<String, List<CovidDataReport>> formattedDataForDateRange) {
+    public void printResult(Map<String, List<CovidDataReport>> formattedDataForDateRange) {
         System.out.println("       Date |  State  | Confirmed total");
         formattedDataForDateRange.forEach((date, list) -> list.forEach(report -> System.out.println(date + "  |   " + report.getState() + "    | " + report.getCount())));
     }
 
-    private void ProcessOption2(List<CovidData> covidDataList) {
+    public void ProcessOption2(List<CovidData> covidDataList) {
         List<CovidData> districtByStateList = covidData.getDistrictByState(covidDataList);
         boolean status = false;
         try {
@@ -197,12 +200,12 @@ public class Main {
         }
     }
 
-    private void processOption1(List<CovidData> covidDataList) {
+    public void processOption1(List<CovidData> covidDataList) {
         List<String> stateNames = covidData.getStateName(covidDataList);
         printResult(stateNames);
     }
 
-    private void printResult(List<String> list) {
+    public void printResult(List<String> list) {
         list.forEach(System.out::println);
     }
 }
